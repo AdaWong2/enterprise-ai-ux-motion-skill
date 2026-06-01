@@ -178,6 +178,16 @@ Overlays triggered by card or button interactions should preserve spatial causal
 - Store the last interaction anchor and recompute overlay position on viewport resize or layout changes.
 - Use fixed overlays for global assistants or command centers; use anchored overlays for object-specific AI suggestions, task actions, and contextual summaries.
 
+## Side Drawer Motion
+
+Side drawers should communicate lateral spatial movement, not just fade into place:
+
+- Keep the scrim as a separate fade/blur layer, but make the drawer panel itself slide from off-canvas using `translate3d(calc(100% + gutter), 0, 0)` to `translate3d(0, 0, 0)`.
+- Avoid using opacity and scale as the primary drawer entrance; they can make a side drawer feel like a modal. Use opacity only for inner content or the scrim.
+- For large enterprise drawers, a good default is 480-540ms for opening and 280-340ms for closing. Closing should feel slightly faster than opening.
+- Stagger drawer contents after the panel begins moving: title first, then tabs/filters, then list cards, then footer actions. Keep delays short so content does not feel late after the panel arrives.
+- On empty demo pages, add one explicit trigger button that opens the drawer. Do not auto-open unless the user specifically requests it.
+
 ## Performance Rules
 
 Prefer transform and opacity.
